@@ -1,0 +1,331 @@
+/* Tree Style Tabs for Zotero - Main Stylesheet */
+
+/* ===== Sidebar Container ===== */
+#treestyletabs-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--material-sidepanel);
+  border-right: 1px solid var(--material-border);
+  min-width: 180px;
+  max-width: 400px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+}
+
+#treestyletabs-sidebar.position-right {
+  border-right: none;
+  border-left: 1px solid var(--material-border);
+}
+
+/* ===== Sidebar Header ===== */
+#treestyletabs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--material-toolbar);
+  border-bottom: 1px solid var(--material-border);
+  min-height: 36px;
+}
+
+#treestyletabs-title {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--fill-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#treestyletabs-toolbar {
+  display: flex;
+  gap: 4px;
+}
+
+.treestyletabs-toolbar-button {
+  background: transparent;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--fill-secondary);
+  font-size: 14px;
+}
+
+.treestyletabs-toolbar-button:hover {
+  background: var(--material-button-hover);
+  color: var(--fill-primary);
+}
+
+/* ===== Tab List Container ===== */
+#treestyletabs-tablist {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 0;
+}
+
+/* ===== Tab Item ===== */
+.treestyletabs-tab {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  margin: 1px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+  position: relative;
+}
+
+.treestyletabs-tab:hover {
+  background: var(--material-button-hover);
+}
+
+.treestyletabs-tab.selected {
+  background: var(--color-accent10);
+}
+
+.treestyletabs-tab.selected .treestyletabs-tab-title {
+  font-weight: 500;
+}
+
+/* ===== Twisty (Expand/Collapse) ===== */
+.treestyletabs-twisty {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  margin-right: 2px;
+}
+
+.treestyletabs-twisty:hover {
+  opacity: 1;
+}
+
+.treestyletabs-twisty::before {
+  content: "";
+  border: 4px solid transparent;
+  border-left: 6px solid currentColor;
+  border-right: 0;
+}
+
+.treestyletabs-tab.expanded > .treestyletabs-twisty::before {
+  transform: rotate(90deg);
+}
+
+.treestyletabs-tab:not(.has-children) > .treestyletabs-twisty {
+  visibility: hidden;
+}
+
+/* ===== Tab Favicon ===== */
+.treestyletabs-tab-favicon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.treestyletabs-tab-favicon.default-icon::before {
+  content: "📄";
+  font-size: 12px;
+}
+
+/* ===== Tab Title ===== */
+.treestyletabs-tab-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fill-primary);
+  font-size: 13px;
+}
+
+/* ===== Close Button ===== */
+.treestyletabs-tab-close {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  flex-shrink: 0;
+  margin-left: 4px;
+  font-size: 14px;
+  color: var(--fill-secondary);
+}
+
+.treestyletabs-tab:hover .treestyletabs-tab-close,
+.treestyletabs-tab.selected .treestyletabs-tab-close {
+  opacity: 0.6;
+}
+
+.treestyletabs-tab-close:hover {
+  opacity: 1 !important;
+  background: var(--material-button-hover);
+  color: var(--fill-primary);
+}
+
+/* ===== Indentation ===== */
+.treestyletabs-tab[data-level="1"] { padding-left: calc(8px + 20px); }
+.treestyletabs-tab[data-level="2"] { padding-left: calc(8px + 40px); }
+.treestyletabs-tab[data-level="3"] { padding-left: calc(8px + 60px); }
+.treestyletabs-tab[data-level="4"] { padding-left: calc(8px + 80px); }
+.treestyletabs-tab[data-level="5"] { padding-left: calc(8px + 100px); }
+
+/* ===== Tree Lines (optional visual enhancement) ===== */
+.treestyletabs-tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: transparent;
+}
+
+.treestyletabs-tab[data-level]:not([data-level="0"])::before {
+  background: var(--material-border);
+  opacity: 0.5;
+}
+
+/* ===== Collapsed State ===== */
+.treestyletabs-tab.collapsed-children .treestyletabs-child {
+  display: none;
+}
+
+/* Hidden tab children */
+.treestyletabs-tab.hidden {
+  display: none;
+}
+
+/* ===== Drop Indicator for Drag & Drop ===== */
+.treestyletabs-drop-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.treestyletabs-tab.drop-target {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* ===== Empty State ===== */
+#treestyletabs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--fill-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ===== Resize Handle ===== */
+#treestyletabs-resizer {
+  width: 4px;
+  cursor: col-resize;
+  background: transparent;
+  transition: background-color 0.15s ease;
+}
+
+#treestyletabs-resizer:hover,
+#treestyletabs-resizer.resizing {
+  background: var(--color-accent);
+}
+
+/* ===== Context Menu ===== */
+.treestyletabs-context-menu {
+  position: fixed;
+  background: var(--material-menu);
+  border: 1px solid var(--material-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 4px 0;
+  z-index: 1000;
+  min-width: 180px;
+}
+
+.treestyletabs-context-menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.treestyletabs-context-menu-item:hover {
+  background: var(--material-button-hover);
+}
+
+.treestyletabs-context-menu-separator {
+  height: 1px;
+  background: var(--material-border);
+  margin: 4px 0;
+}
+
+/* ===== New Tab Button ===== */
+#treestyletabs-newtab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin: 4px 8px 8px;
+  border: 1px dashed var(--material-border);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--fill-secondary);
+  transition: all 0.15s ease;
+}
+
+#treestyletabs-newtab:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent10);
+}
+
+/* ===== Scrollbar Styling ===== */
+#treestyletabs-tablist::-webkit-scrollbar {
+  width: 6px;
+}
+
+#treestyletabs-tablist::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#treestyletabs-tablist::-webkit-scrollbar-thumb {
+  background: var(--fill-quinary);
+  border-radius: 3px;
+}
+
+#treestyletabs-tablist::-webkit-scrollbar-thumb:hover {
+  background: var(--fill-quaternary);
+}
+
+/* ===== Dark Mode Adjustments ===== */
+@media (prefers-color-scheme: dark) {
+  #treestyletabs-sidebar {
+    background: #1e1e1e;
+    border-color: #333;
+  }
+  
+  .treestyletabs-tab.selected {
+    background: rgba(100, 149, 237, 0.2);
+  }
+}

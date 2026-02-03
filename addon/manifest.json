@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "__addonName__",
+  "version": "__version__",
+  "description": "Tree Style Tabs for Zotero - organize your tabs in a tree hierarchy",
+  "author": "__author__",
+  "homepage_url": "__homepage__",
+  "icons": {
+    "48": "content/icons/favicon@0.5x.png",
+    "96": "content/icons/favicon.png"
+  },
+  "applications": {
+    "zotero": {
+      "id": "__addonID__",
+      "update_url": "__updateURL__",
+      "strict_min_version": "7.0.0"
+    }
+  }
+}

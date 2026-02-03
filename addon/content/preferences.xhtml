@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css"?>
+<?xml-stylesheet href="chrome://zotero/skin/zotero.css" type="text/css"?>
+<?xml-stylesheet href="chrome://treestyletabs/content/treestyletabs.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://treestyletabs/locale/preferences.dtd">
+
+<window
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  id="treestyletabs-prefs"
+  title="Tree Style Tabs Preferences"
+  onload="TreeStyleTabsPrefs.init()"
+>
+  <vbox id="treestyletabs-prefs-container" style="padding: 10px;">
+    <groupbox>
+      <label><html:h2>Display Settings</html:h2></label>
+      
+      <hbox align="center">
+        <label value="Sidebar Position:" />
+        <menulist id="treestyletabs-position" preference="extensions.zotero.treestyletabs.position">
+          <menupopup>
+            <menuitem label="Left" value="left" />
+            <menuitem label="Right" value="right" />
+          </menupopup>
+        </menulist>
+      </hbox>
+      
+      <hbox align="center">
+        <label value="Sidebar Width (px):" />
+        <html:input type="number" id="treestyletabs-width" 
+          preference="extensions.zotero.treestyletabs.sidebarWidth"
+          min="150" max="500" style="width: 80px;" />
+      </hbox>
+      
+      <hbox align="center">
+        <label value="Indent Size (px):" />
+        <html:input type="number" id="treestyletabs-indent" 
+          preference="extensions.zotero.treestyletabs.indentSize"
+          min="10" max="50" style="width: 80px;" />
+      </hbox>
+    </groupbox>
+    
+    <groupbox>
+      <label><html:h2>Behavior</html:h2></label>
+      
+      <checkbox id="treestyletabs-autocollapse" 
+        label="Auto-collapse other trees when expanding"
+        preference="extensions.zotero.treestyletabs.autoCollapse" />
+      
+      <checkbox id="treestyletabs-collapseonclose" 
+        label="Collapse children when closing parent"
+        preference="extensions.zotero.treestyletabs.collapseOnClose" />
+      
+      <checkbox id="treestyletabs-showclose" 
+        label="Show close button on tabs"
+        preference="extensions.zotero.treestyletabs.showCloseButton" />
+    </groupbox>
+  </vbox>
+  
+  <script src="chrome://treestyletabs/content/scripts/preferences.js" />
+</window>
