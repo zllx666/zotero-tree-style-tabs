@@ -14,12 +14,42 @@ const rootDir = join(__dirname, "..");
 // Load environment variables
 config({ path: join(rootDir, ".env") });
 
-const ZOTERO_BIN = process.env.ZOTERO_BIN || "/Applications/Zotero.app/Contents/MacOS/zotero";
+// Auto-detect Zotero binary path if not set
+function getDefaultZoteroBin() {
+  if (process.platform === "darwin") {
+    return "/Applications/Zotero.app/Contents/MacOS/zotero";
+  }
+  if (process.platform === "win32") {
+    return "C:\\Program Files (x86)\\Zotero\\zotero.exe";
+  }
+  // Linux - try common locations
+  return "/usr/bin/zotero";
+}
+
+const ZOTERO_BIN = process.env.ZOTERO_BIN || getDefaultZoteroBin();
 const ZOTERO_PROFILE = process.env.ZOTERO_PROFILE;
 
 console.log("Starting development server...");
+console.log(`Platform: ${process.platform}`);
 console.log(`Zotero binary: ${ZOTERO_BIN}`);
 console.log(`Zotero profile: ${ZOTERO_PROFILE || "(auto)"}`);
+
+// Check if Zotero binary exists
+if (!existsSync(ZOTERO_BIN)) {
+  console.error("\n❌ Zotero binary not found at:", ZOTERO_BIN);
+  console.error("\nPlease create a .env file with the correct path:");
+  console.error("  cp .env.example .env");
+  console.error("\nThen edit .env and set ZOTERO_BIN to your Zotero installation:");
+  if (process.platform === "darwin") {
+    console.error("  macOS: /Applications/Zotero.app/Contents/MacOS/zotero");
+  } else if (process.platform === "win32") {
+    console.error("  Windows: C:\\Program Files (x86)\\Zotero\\zotero.exe");
+    console.error("       or: C:\\Program Files\\Zotero\\zotero.exe");
+  } else {
+    console.error("  Linux: /usr/bin/zotero or /usr/local/bin/zotero");
+  }
+  process.exit(1);
+}
 
 const PROFILES_INI_PATH = getProfilesIniPath();
 
